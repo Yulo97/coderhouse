@@ -1,0 +1,47 @@
+[
+	{
+		"id": 1,
+		"title": "Producto 1",
+		"description": "El Bananero",
+		"price": 500,
+		"thumbnail": "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
+		"code": "5001",
+		"stock": 8
+	},
+	{
+		"id": 2,
+		"title": "Productaso 2",
+		"description": "El Bananero",
+		"price": 500,
+		"thumbnail": "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
+		"code": "5001",
+		"stock": 8
+	},
+	{
+		"id": 3,
+		"title": "Producto 3",
+		"description": "El Bananero Sape",
+		"price": 600,
+		"thumbnail": "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
+		"code": "5001",
+		"stock": 8
+	},
+	{
+		"id": 4,
+		"title": "Producto 4",
+		"description": "El Bananero Sapeeeee",
+		"price": 600,
+		"thumbnail": "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
+		"code": "5001",
+		"stock": 8
+	},
+	{
+		"id": 5,
+		"title": "Producto 5",
+		"description": "El Pelucaaaa Sapeeeee",
+		"price": 600,
+		"thumbnail": "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
+		"code": "5041",
+		"stock": 8
+	}
+]
