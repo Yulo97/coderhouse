@@ -1,6 +1,6 @@
 import fs from "fs"
 
-class ProductManager {
+export class ProductManager {
     #path
     #format
 
@@ -20,12 +20,18 @@ class ProductManager {
     }
 
     getProductById = async id => {
-        const products = await this.getProducts()
-        const NewProduct = products.find(item => item.id === id)
-        if (NewProduct) {
-            return NewProduct
-        } else {
-            console.log("No se encontro el producto")
+        try {
+            const products = await this.getProducts()
+            const NewProduct = products.find(item => item.id === id)
+            if (NewProduct) {
+                return NewProduct
+            }
+            else {
+                throw new Error("No se encontró ningún producto con el ID proporcionado");
+            }
+        } catch (error) {
+            console.error(error)
+            return { error: true, mensaje: error.message }
         }
     }
 
