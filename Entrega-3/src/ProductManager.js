@@ -10,9 +10,17 @@ export class ProductManager {
     }
 
     addProduct = async product => {
+        const verificacion = this.#verifProduct(product)
+        if (verificacion.error) return verificacion;
+
         const products = await this.getProducts();
-        products.push({ id: products.length + 1, ...product })
-        return fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+        if (product.thumbnail) {
+            products.push({ id: products.length + 1, status: true, ...product })
+        } else {
+            products.push({ id: products.length + 1, status: true, thumbnail: [], ...product })
+        }
+        fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+        return { error: false, message: "Producto agregado correctamente" }
     }
 
     getProducts = async () => {
@@ -30,8 +38,7 @@ export class ProductManager {
                 throw new Error("No se encontró ningún producto con el ID proporcionado");
             }
         } catch (error) {
-            console.error(error)
-            return { error: true, mensaje: error.message }
+            return { error: true, message: error.message }
         }
     }
 
@@ -39,10 +46,11 @@ export class ProductManager {
         const products = await this.getProducts();
         const index = products.findIndex(item => item.id === id)
         if (index !== -1) {
-            products.splice(index, 1, { id: id, ...product })
-            return fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+            products[index] = { ...products[index], ...product }
+            fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+            return { error: false, message: `Producto con ID: ${id} actualizado` }
         } else {
-            console.log("No se encontro el producto a actualizar")
+            return { error: true, message: `No se encontro el ID: ${id}` }
         }
     }
 
@@ -50,32 +58,30 @@ export class ProductManager {
         const products = await this.getProducts();
         const index = products.findIndex(item => item.id === id)
         if (index !== -1) {
-            products.splice(index, 1, { id: id, ...product })
-            return fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+            products.splice(index, 1)
+            fs.promises.writeFile(this.#path, JSON.stringify(products, null, '\t'))
+            return { error: false, message: `Se elimino el producto con el ID: ${id} ` }
         } else {
-            console.error("No se encontro el producto a eliminar")
+            return { error: true, message: `No se encontro el producto con el ID: ${id} ` }
         }
     }
-}
 
-class Product {
-    constructor(title, description, price, thumbnail, code, stock) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.thumbnail = thumbnail;
-        this.code = code;
-        this.stock = stock;
+    #verifProduct = product => {
+        const { title, description, price, thumbnail, code, stock, category } = product
+
+        if (!title || typeof (title) !== "string") return { error: true, message: "No se agrego un titulo al producto" }
+        if (!description || typeof (description) !== "string") return { error: true, message: "No se agreego la descripcion al producto" }
+        if (!price || typeof (price) !== "number") return { error: true, message: "No se agrego el precio al producto" }
+        if (!code || typeof (code) !== "string") return { error: true, message: "No se agrego el codigo al producto" }
+        if (!stock || typeof (stock) !== "number") return { error: true, message: "No se agrego el stock al producto" }
+        if (!category || typeof (category) !== "string") return { error: true, message: "No se agrego una categoria al producto" }
+        if (thumbnail) {
+            if (typeof (thumbnail) !== "object")
+                return { error: true, message: "No se agrego un formato de imagen correcto" }
+            else {
+                return { error: false, message: "Producto verificado correctamente" }
+            }
+        }
+        else return { error: false, message: "Producto verificado correctamente" }
     }
 }
-
-const manager = new ProductManager('./products.json')
-
-const producto = new Product(
-    "Producto 5",
-    "El Pelucaaaa Sapeeeee",
-    600,
-    "https://e.radio-grpp.io/medium/2021/04/15/083608_1083232.jpg",
-    "5041",
-    8
-);
