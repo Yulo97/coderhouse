@@ -178,5 +178,49 @@
 		"price": 3800,
 		"code": "5001",
 		"stock": 2
+	},
+	{
+		"id": 15,
+		"status": true,
+		"thumbnail": [],
+		"title": "Producto Nuevo",
+		"description": "Este es el Producto nuevo",
+		"price": 332,
+		"code": "133",
+		"stock": 12,
+		"category": "Electrónica"
+	},
+	{
+		"id": 16,
+		"status": true,
+		"thumbnail": [],
+		"title": "Producto Nuevo 2",
+		"description": "Este es el Producto nuevo",
+		"price": 332,
+		"code": "133",
+		"stock": 12,
+		"category": "Electrónica"
+	},
+	{
+		"id": 17,
+		"status": true,
+		"thumbnail": [],
+		"title": "asd",
+		"description": "asd",
+		"price": 123,
+		"code": "123",
+		"stock": 123,
+		"category": "Ropa"
+	},
+	{
+		"id": 18,
+		"status": true,
+		"thumbnail": [],
+		"title": "asd",
+		"description": "asd",
+		"price": 123,
+		"code": "123",
+		"stock": 123,
+		"category": "Ropa"
 	}
 ]
