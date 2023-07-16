@@ -2,9 +2,21 @@ import productModel from "../dao/models/product.model.js"
 
 export const getProducts = async (req, res) => {
     try {
-        const limit = req.query.limit
-        const result = await productModel.find().limit(limit).lean().exec()
-        res.status(200).json({ status: 'success', payload: result })
+        const limit = req.query.limit || 2
+        const page = req.query.page || 1
+        const status = req.query.status === "true" ? true : false || true
+        const sort = req.query.sort === "desc" ? -1 : 1 || 1
+        const category = req.query.category || undefined
+
+        if (!category) {
+            const result = await productModel.paginate({ status }, { limit, page, sort: { price: sort } })
+            res.status(200).json({ status: 'success', payload: result })
+
+        } else {
+            const result = await productModel.paginate({ status, category }, { limit, page, sort: { price: sort } })
+            res.status(200).json({ status: 'success', payload: result })
+        }
+
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
     }
@@ -22,6 +34,7 @@ export const getProductById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
     const body = req.body
+    console.log("hola")
     try {
         const result = await productModel.create(body)
         res.status(201).json({ status: 'success', payload: result })

@@ -4,10 +4,8 @@ import { Server } from "socket.io"
 import productRouter from "./routes/product.routes.js"
 import cartRouter from "./routes/cart.routes.js"
 import viewsRouter from "./routes/views.routes.js"
-import chatRouter from "./routes/chat.routes.js"
 import productModel from "./dao/models/product.model.js"
 import './db.js'
-
 import messageModel from "./dao/models/message.model.js"
 
 
@@ -25,8 +23,7 @@ app.use(express.static('./public'))
 
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
-app.use('/api/realtimeproducts', viewsRouter)
-app.use('/api/chat', chatRouter)
+app.use('/api/views', viewsRouter)
 
 
 // WEBSOCKET 

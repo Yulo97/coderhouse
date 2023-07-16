@@ -4,11 +4,11 @@ const cart = new Schema({
     products: {
         type: [{
             _id: false,
-            product: Schema.Types.ObjectId,
-            quiantity: Number
+            product: { type: Schema.Types.ObjectId, ref: 'Product' },
+            quantity: Number,
         }],
         default: []
     }
-})
+}, { versionKey: false })
 
 export default model('Cart', cart);
