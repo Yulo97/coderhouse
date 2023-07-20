@@ -34,7 +34,6 @@ export const getProductById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
     const body = req.body
-    console.log("hola")
     try {
         const result = await productModel.create(body)
         res.status(201).json({ status: 'success', payload: result })

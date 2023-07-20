@@ -60,3 +60,20 @@ const addProduct = async (idProduct) => {
         console.log(error)
     }
 }
+
+document.querySelector('#logoutBtn').addEventListener('click', async () => {
+    try {
+        const response = await fetch('/api/user/logout', {
+            method: "POST"
+        })
+
+        if (response.ok) {
+            window.location.href = '/api/views/login';
+        } else {
+            console.error('Logout fallido');
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})

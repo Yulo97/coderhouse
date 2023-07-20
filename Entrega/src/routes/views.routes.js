@@ -20,8 +20,21 @@ router.get('/realtimeproducts', (req, res) => {
     }
 })
 
-router.get('/products', async (req, res) => {
+router.get('/products', (req, res, next) => {
+
+    if (!req.isAuthenticated()) return res.redirect('/api/views/login');
+
+    if (req.user.role === "admin") return next()
+
+    if (req.user.role !== 'admin') {
+        // Si el usuario no es "admin", mostrar un mensaje de acceso denegado
+        return res.status(403).send('Acceso denegado. No tienes permisos para acceder a esta página.');
+    }
+
+}, async (req, res) => {
     try {
+        const { first_name } = req.user
+
         const limit = req.query.limit || 2
         const page = req.query.page || 1
         const status = req.query.status === "true" ? true : false || true
@@ -31,12 +44,11 @@ router.get('/products', async (req, res) => {
         if (!category) {
             const result = await productModel.paginate({ status }, { limit, page, sort: { price: sort } })
             const products = JSON.parse(JSON.stringify(result));
-            console.log(products)
-            res.render('products', { products })
+            res.render('products', { products, first_name })
         } else {
             const result = await productModel.paginate({ status, category }, { limit, page, sort: { price: sort } })
             const products = JSON.parse(JSON.stringify(result));
-            res.render('products', { products })
+            res.render('products', { products, first_name })
         }
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -48,11 +60,18 @@ router.get('/carts/:cid', async (req, res) => {
     try {
         const result = await cartModel.findById(id).populate({ path: "products.product" })
         const products = JSON.parse(JSON.stringify(result));
-        console.log(products)
         res.render('cart', products)
     } catch (error) {
         console.log(error)
     }
+})
+
+router.get('/register', async (req, res) => {
+    res.render('register')
+})
+
+router.get('/login', async (req, res) => {
+    res.render('login')
 })
 
 export default router

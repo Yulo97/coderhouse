@@ -1,12 +1,16 @@
-import express from "express"
+import express, { urlencoded } from "express"
 import handlebars from "express-handlebars"
 import { Server } from "socket.io"
 import productRouter from "./routes/product.routes.js"
 import cartRouter from "./routes/cart.routes.js"
 import viewsRouter from "./routes/views.routes.js"
+import userRouter from "./routes/user.routes.js"
 import productModel from "./dao/models/product.model.js"
-import './db.js'
 import messageModel from "./dao/models/message.model.js"
+import cookieParser from "cookie-parser"
+import session from "express-session"
+import passport from "./passport-config.js"
+import './db.js'
 
 
 const app = express();
@@ -15,14 +19,30 @@ const httpServer = app.listen(PORT, console.log("Server UP"))
 export const io = new Server(httpServer)
 
 app.set('socketio', io)
-app.use(express.json())
-app.engine('handlebars', handlebars.engine())
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
+app.engine('handlebars', handlebars.engine())
+
+app.use(express.json())
 app.use(express.static('./public'))
 
+// Sesion
+app.use(urlencoded({ extended: true }))
+app.use(cookieParser("my secret"))
+app.use(session({
+    secret: "my secret",
+    resave: true,
+    saveUninitialized: true
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+// Routes
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
+app.use('/api/user', userRouter)
 app.use('/api/views', viewsRouter)
 
 
