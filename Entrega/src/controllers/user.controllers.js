@@ -1,9 +1,17 @@
 import userModel from "../dao/models/user.model.js";
+import { passwordEncrypt } from "../utils/password.js";
 
 export const createUser = async (req, res) => {
     const body = req.body
+    const hashed = passwordEncrypt(body.password)
+
+    const user = {
+        ...body,
+        password: hashed
+    }
+
     try {
-        const result = await userModel.create(body)
+        const result = await userModel.create(user)
         res.json({ status: "success", payload: result })
     } catch (error) {
         res.json({ status: "error", error: error })

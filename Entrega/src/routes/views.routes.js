@@ -27,8 +27,7 @@ router.get('/products', (req, res, next) => {
     if (req.user.role === "admin") return next()
 
     if (req.user.role !== 'admin') {
-        // Si el usuario no es "admin", mostrar un mensaje de acceso denegado
-        return res.status(403).send('Acceso denegado. No tienes permisos para acceder a esta página.');
+        return res.status(403).json({ error: true, message: 'Acceso denegado. No tienes permisos para acceder a esta página.' });
     }
 
 }, async (req, res) => {

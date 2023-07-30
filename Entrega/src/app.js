@@ -7,7 +7,6 @@ import viewsRouter from "./routes/views.routes.js"
 import userRouter from "./routes/user.routes.js"
 import productModel from "./dao/models/product.model.js"
 import messageModel from "./dao/models/message.model.js"
-import cookieParser from "cookie-parser"
 import session from "express-session"
 import passport from "./passport-config.js"
 import './db.js'
@@ -28,23 +27,19 @@ app.use(express.static('./public'))
 
 // Sesion
 app.use(urlencoded({ extended: true }))
-app.use(cookieParser("my secret"))
 app.use(session({
     secret: "my secret",
     resave: true,
     saveUninitialized: true
 }))
-
-app.use(passport.initialize())
 app.use(passport.session())
-
+app.use(passport.initialize())
 
 // Routes
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/user', userRouter)
 app.use('/api/views', viewsRouter)
-
 
 // WEBSOCKET 
 io.on('connection', socket => {
