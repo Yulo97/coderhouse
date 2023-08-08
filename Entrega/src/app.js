@@ -5,6 +5,7 @@ import productRouter from "./routes/product.routes.js"
 import cartRouter from "./routes/cart.routes.js"
 import viewsRouter from "./routes/views.routes.js"
 import userRouter from "./routes/user.routes.js"
+import sessionsRouter from "./routes/sessions.routes.js"
 import productModel from "./dao/models/product.model.js"
 import messageModel from "./dao/models/message.model.js"
 import session from "express-session"
@@ -39,6 +40,7 @@ app.use(passport.initialize())
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/user', userRouter)
+app.use('/api/sessions', sessionsRouter)
 app.use('/api/views', viewsRouter)
 
 // WEBSOCKET 

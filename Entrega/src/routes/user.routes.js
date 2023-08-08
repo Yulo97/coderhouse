@@ -4,7 +4,13 @@ import passport from "passport";
 
 const router = Router()
 
-router.post('/register', userController.createUser)
+// router.post('/register', userController.createUser)
+router.post('/register', passport.authenticate('register', {
+    successRedirect: '/api/views/products',
+    failureRedirect: '/api/views/login',
+    failureFlash: true
+}));
+
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: "/api/views/products",
@@ -20,6 +26,7 @@ router.get('/callbackgithub', passport.authenticate('github', {
 }), (req, res) => {
     res.redirect('/api/views/products')
 })
+
 
 router.post('/logout', userController.logoutUser)
 
