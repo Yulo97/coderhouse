@@ -9,6 +9,5 @@ export const passwordEncrypt = password => {
 
 export const passwordCompare = (password, hashed) => {
     const match = bcrypt.compareSync(password, hashed); // Compara una contraseña con un hash
-    console.log(match)
     return match
 }

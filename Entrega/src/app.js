@@ -10,11 +10,11 @@ import productModel from "./dao/models/product.model.js"
 import messageModel from "./dao/models/message.model.js"
 import session from "express-session"
 import passport from "./passport-config.js"
+import config from "./config.js"
 import './db.js'
 
-
 const app = express();
-const PORT = "8080"
+const PORT = config.port
 const httpServer = app.listen(PORT, console.log("Server UP"))
 export const io = new Server(httpServer)
 
@@ -29,7 +29,7 @@ app.use(express.static('./public'))
 // Sesion
 app.use(urlencoded({ extended: true }))
 app.use(session({
-    secret: "my secret",
+    secret: config.secretSession,
     resave: true,
     saveUninitialized: true
 }))

@@ -3,6 +3,7 @@ import LocalStrategy from "passport-local"
 import GitHubStrategy from "passport-github2"
 import userModel from "./dao/models/user.model.js"
 import { passwordCompare, passwordEncrypt } from "./utils/password.js"
+import config from "./config.js"
 
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
@@ -42,9 +43,9 @@ passport.use('register', new LocalStrategy({
 }))
 
 passport.use('github', new GitHubStrategy({
-    clientID: 'Iv1.79f77acb575ae46e',
-    clientSecret: "5d16eb139e7e1f5663469c33868400822db44565",
-    callbackURL: "http://localhost:8080/api/user/callbackgithub"
+    clientID: config.passportIdGithub,
+    clientSecret: config.passportClientSecretGithub,
+    callbackURL: config.passportCallbackUrlGithub
 
 }, async (accessToken, refreshToken, profile, done) => {
     try {

@@ -1,22 +1,9 @@
 import { Router } from "express";
-import { passwordEncrypt } from "../utils/password.js";
+import * as controllers from "../controllers/sessions.controllers.js"
 
 const router = Router()
 
-router.get('/current', (req, res) => {
-    res.json({ user: req.user })
-})
-
-router.get('/prueba', (req, res) => {
-
-    const { pass } = req.query
-
-    try {
-        res.json({ pass: pass, passEncrypted: passwordEncrypt(pass) })
-    } catch (error) {
-        console.log(error)
-    }
-})
+router.get('/current', controllers.getCurrentUser)
 
 export default router
 

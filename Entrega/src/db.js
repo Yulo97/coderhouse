@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
+import config from "./config.js"
 
-mongoose.connect('mongodb+srv://giulianodv97:BxKGCKhxkXiXEU2W@cluster0.n4zjmcm.mongodb.net/ecommerce', {
+mongoose.connect(config.mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

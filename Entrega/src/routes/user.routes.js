@@ -1,10 +1,9 @@
 import { Router } from "express";
-import * as userController from "../controllers/user.controllers.js"
+import * as controllers from "../controllers/user.controllers.js"
 import passport from "passport";
 
 const router = Router()
 
-// router.post('/register', userController.createUser)
 router.post('/register', passport.authenticate('register', {
     successRedirect: '/api/views/products',
     failureRedirect: '/api/views/login',
@@ -23,11 +22,8 @@ router.get('/login-github', passport.authenticate('github', {
 
 router.get('/callbackgithub', passport.authenticate('github', {
     failureRedirect: '/api/views/login'
-}), (req, res) => {
-    res.redirect('/api/views/products')
-})
+}), controllers.redirectProducts)
 
-
-router.post('/logout', userController.logoutUser)
+router.post('/logout', controllers.logoutUser)
 
 export default router
