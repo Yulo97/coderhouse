@@ -1,4 +1,4 @@
-import * as services from "../services/product.services.js"
+import { productServices } from "../services/index.js"
 
 export const getProducts = async (req, res) => {
     const limit = req.query.limit || 2
@@ -8,7 +8,7 @@ export const getProducts = async (req, res) => {
     const category = req.query.category || undefined
 
     try {
-        const result = await services.getProductsServices(limit, page, status, sort, category)
+        const result = await productServices.getAll(limit, page, status, sort, category)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -18,7 +18,7 @@ export const getProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
     const id = req.params.id
     try {
-        const result = await services.getProductByIdServices(id)
+        const result = await productServices.getById(id)
         res.status(200).json({ status: "success", payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -28,7 +28,7 @@ export const getProductById = async (req, res) => {
 export const addProduct = async (req, res) => {
     const body = req.body
     try {
-        const result = await services.addProductServices(body)
+        const result = await productServices.create(body)
         res.status(201).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -39,7 +39,7 @@ export const updateProduct = async (req, res) => {
     const id = req.params.id
     const body = req.body
     try {
-        const result = await services.updateProductServices(id, body)
+        const result = await productServices.update(id, body)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -49,7 +49,7 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     const id = req.params.id
     try {
-        const result = await services.deleteProductServices(id)
+        const result = await productServices.delete(id)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })

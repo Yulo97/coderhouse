@@ -1,5 +1,4 @@
-import cartModel from "../dao/models/cart.model.js";
-import * as servicesProduct from "../services/product.services.js";
+import { productServices, cartServices } from "../services/index.js"
 
 export const renderChat = (req, res) => {
     try {
@@ -20,13 +19,13 @@ export const renderRealTimeProducts = (req, res) => {
 export const renderProducts = async (req, res) => {
     try {
         const { first_name } = req.user
-        const limit = req.query.limit || 2
+        const limit = req.query.limit || 5
         const page = req.query.page || 1
         const status = req.query.status === "true" ? true : false || true
         const sort = req.query.sort === "desc" ? -1 : 1 || 1
         const category = req.query.category || undefined
 
-        const result = await servicesProduct.getProductsServices(limit, page, status, sort, category)
+        const result = await productServices.getAll(limit, page, status, sort, category)
         const products = JSON.parse(JSON.stringify(result));
         res.render('products', { products, first_name })
 
@@ -38,7 +37,7 @@ export const renderProducts = async (req, res) => {
 export const getCartById = async (req, res) => {
     try {
         const id = req.params.cid
-        const result = await cartModel.findById(id).populate({ path: "products.product" })
+        const result = await cartServices.getById(id)
         const products = JSON.parse(JSON.stringify(result));
         res.render('cart', products)
     } catch (error) {

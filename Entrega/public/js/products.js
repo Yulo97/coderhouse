@@ -41,7 +41,7 @@ form.addEventListener('submit', e => {
 })
 
 const addProduct = async (idProduct) => {
-    const idCart = "64b44cb192dc4a631f3554e3"
+    const idCart = "64dd51aa1038d3e461b63234"
 
     const body = {
         quantity: 1

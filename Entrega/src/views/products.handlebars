@@ -1,5 +1,7 @@
-<p>Bienvenido {{first_name}}!</p> 
-<button id="logoutBtn">Logout</button>
+<div class="container">
+<h4>Bienvenido {{first_name}}!</h4> 
+<button id="logoutBtn" class="btn btn-secondary">Logout</button>
+<br><br>
 <h2 id="title">Agregar Producto</h2>
 <div class="container">
   <form id="productForm">
@@ -53,6 +55,7 @@
     </div>
 
     <div class="form-group">
+      <br>
       <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </form>
@@ -66,7 +69,7 @@
       <th>Precio</th>
       <th>Código</th>
       <th>Stock</th>
-      <th>#</th>
+      <th>Add to Cart</th>
     </tr>
   </thead>
   <tbody>
@@ -78,7 +81,7 @@
         <td>{{this.price}}</td>
         <td>{{this.code}}</td>
         <td>{{this.stock}}</td>
-        <td><button onclick="addProduct('{{this._id}}')">Agregar</button></td>
+        <td><button class="btn btn-warning" onclick="addProduct('{{this._id}}')">+</button></td>
       </tr>
     {{/each}}
   </tbody>
@@ -86,6 +89,7 @@
 
   <button onclick="prevPage({{products.page}})" class="btn btn-primary">anterior</button>
   <button onclick="nextPage({{products.page}})" class="btn btn-primary">siguiente</button>
+</div>
 </div>
 
 <script src="/js/products.js"></script>

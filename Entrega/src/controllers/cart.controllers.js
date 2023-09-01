@@ -1,9 +1,9 @@
-import * as services from "../services/cart.services.js"
+import { cartServices } from "../services/index.js"
 
 export const getCarts = async (req, res) => {
     const limit = req.query.limit
     try {
-        const result = await services.getCartsService(limit)
+        const result = await cartServices.getAll(limit)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -13,7 +13,7 @@ export const getCarts = async (req, res) => {
 export const getCartById = async (req, res) => {
     const id = req.params.id
     try {
-        const result = await services.getCartsByIdService(id)
+        const result = await cartServices.getById(id)
         res.status(200).json({ status: "success", payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -23,7 +23,8 @@ export const getCartById = async (req, res) => {
 export const addCart = async (req, res) => {
     const body = req.body
     try {
-        const result = await services.addCartServices(body)
+        // const result = await services.addCartServices(body)
+        const result = await cartServices.create(body)
         res.status(201).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -34,7 +35,7 @@ export const updateCart = async (req, res) => {
     const id = req.params.id
     const body = req.body
     try {
-        const result = await services.updateCartServices(id, body)
+        const result = await cartServices.update(id, body)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -44,7 +45,7 @@ export const updateCart = async (req, res) => {
 export const deleteCart = async (req, res) => {
     const id = req.params.id
     try {
-        const result = await services.deleteCartServices(id)
+        const result = await cartServices.delete(id)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -56,7 +57,7 @@ export const deleteProductOfCart = async (req, res) => {
     const idProduct = req.params.pid
 
     try {
-        const result = await services.deleteProductOfCartServices(idCart, idProduct)
+        const result = await cartServices.deleteProductCart(idCart, idProduct)
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
@@ -69,9 +70,14 @@ export const updateProductOfCart = async (req, res) => {
     const { quantity } = req.body;
 
     try {
-        const result = await services.updateProductOfCartServices(idCart, idProduct, quantity)
+        const result = await cartServices.updateProductCart(idCart, idProduct, quantity)
         res.status(200).json({ status: 'success', payload: result });
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message });
     }
+}
+
+export const purchase = (req, res) => {
+    const cartId = req.params.cid
+
 }

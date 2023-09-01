@@ -1,7 +1,7 @@
 import passport from "passport"
 import LocalStrategy from "passport-local"
 import GitHubStrategy from "passport-github2"
-import userModel from "./dao/models/user.model.js"
+import userModel from "./models/user.model.js"
 import { passwordCompare, passwordEncrypt } from "./utils/password.js"
 import config from "./config.js"
 
