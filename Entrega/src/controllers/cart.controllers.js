@@ -23,7 +23,6 @@ export const getCartById = async (req, res) => {
 export const addCart = async (req, res) => {
     const body = req.body
     try {
-        // const result = await services.addCartServices(body)
         const result = await cartServices.create(body)
         res.status(201).json({ status: 'success', payload: result })
     } catch (error) {
@@ -77,7 +76,3 @@ export const updateProductOfCart = async (req, res) => {
     }
 }
 
-export const purchase = (req, res) => {
-    const cartId = req.params.cid
-
-}
