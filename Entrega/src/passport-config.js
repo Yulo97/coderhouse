@@ -4,6 +4,9 @@ import GitHubStrategy from "passport-github2"
 import userModel from "./models/user.model.js"
 import { passwordCompare, passwordEncrypt } from "./utils/password.js"
 import config from "./config.js"
+import CustomErrors from "./services/errors/CustomError.js"
+import { generateUserInfo } from "./services/errors/info.js"
+import EErrors from "./services/errors/enums.js"
 
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
@@ -24,6 +27,20 @@ passport.use('register', new LocalStrategy({
     usernameField: 'email'
 }, async (req, username, password, done) => {
     const { first_name, last_name, email, age } = req.body
+
+    if (!first_name || !last_name || !email) {
+        try {
+            CustomErrors.createError({
+                name: "User creation error",
+                cause: generateUserInfo({ first_name, last_name, email }),
+                message: "Error trying to create User",
+                code: EErrors.INVALID_TYPES_ERROR
+            })
+        } catch (error) {
+            console.error("Se produjo un error: ", error.message)
+        }
+    }
+
     try {
         const user = await userModel.findOne({ email: username })
         if (user) {

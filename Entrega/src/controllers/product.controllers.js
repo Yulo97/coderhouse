@@ -1,4 +1,6 @@
+import { nanoid } from "nanoid"
 import { productServices } from "../services/index.js"
+import { faker } from "@faker-js/faker"
 
 export const getProducts = async (req, res) => {
     const limit = req.query.limit || 2
@@ -53,5 +55,27 @@ export const deleteProduct = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+    }
+}
+
+export const generateProduct = async (req, res) => {
+    const array = []
+
+    for (let i = 0; i < 100; i++) {
+        array.push({
+            title: faker.commerce.product(),
+            description: faker.commerce.productDescription(),
+            price: Number(faker.commerce.price()),
+            stock: 10,
+            category: faker.commerce.department(),
+            code: nanoid(10)
+        })
+    }
+
+    try {
+        const response = await productServices.create(array)
+        res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
     }
 }

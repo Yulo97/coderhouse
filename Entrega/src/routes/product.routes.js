@@ -9,5 +9,6 @@ router.get('/:id', controllers.getProductById)
 router.post('/', isAdmin, controllers.addProduct)
 router.put('/:id', isAdmin, controllers.updateProduct)
 router.delete('/:id', isAdmin, controllers.deleteProduct)
+router.post('/create/mockingproducts', controllers.generateProduct)
 
 export default router

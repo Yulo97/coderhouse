@@ -11,6 +11,7 @@ import messageModel from "./models/message.model.js"
 import session from "express-session"
 import passport from "./passport-config.js"
 import config from "./config.js"
+import errorHanlder from "./middlewares/errors.middleware.js"
 import './db.js'
 
 const app = express();
@@ -25,6 +26,7 @@ app.engine('handlebars', handlebars.engine())
 
 app.use(express.json())
 app.use(express.static('./public'))
+app.use(errorHanlder)
 
 // Sesion
 app.use(urlencoded({ extended: true }))
