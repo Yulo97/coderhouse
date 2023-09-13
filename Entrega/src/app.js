@@ -13,6 +13,7 @@ import passport from "./passport-config.js"
 import config from "./config.js"
 import errorHanlder from "./middlewares/errors.middleware.js"
 import './db.js'
+import { logger } from "./utils/logger.js"
 
 const app = express();
 const PORT = config.port
@@ -44,6 +45,16 @@ app.use('/api/cart', cartRouter)
 app.use('/api/user', userRouter)
 app.use('/api/sessions', sessionsRouter)
 app.use('/api/views', viewsRouter)
+
+app.get('/api/loggertest', (req, res) => {
+    logger.debug("prueba")
+    logger.info("prueba")
+    logger.http("prueba")
+    logger.warning("prueba")
+    logger.error("prueba")
+    logger.fatal("prueba")
+    res.json({ error: false, message: "prueba realizada con exito" })
+})
 
 // WEBSOCKET 
 io.on('connection', socket => {

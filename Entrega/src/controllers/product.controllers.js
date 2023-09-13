@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid"
 import { productServices } from "../services/index.js"
 import { faker } from "@faker-js/faker"
+import { logger } from "../utils/logger.js"
 
 export const getProducts = async (req, res) => {
     const limit = req.query.limit || 2
@@ -14,6 +15,7 @@ export const getProducts = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -24,6 +26,7 @@ export const getProductById = async (req, res) => {
         res.status(200).json({ status: "success", payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -34,6 +37,7 @@ export const addProduct = async (req, res) => {
         res.status(201).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -45,6 +49,7 @@ export const updateProduct = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -55,6 +60,7 @@ export const deleteProduct = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -73,9 +79,10 @@ export const generateProduct = async (req, res) => {
     }
 
     try {
-        const response = await productServices.create(array)
+        const response = await productServices.create(arraya)
         res.status(200).json(response)
     } catch (error) {
-        console.log(error)
+        res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }

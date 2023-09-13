@@ -7,6 +7,7 @@ export const getCarts = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -17,6 +18,7 @@ export const getCartById = async (req, res) => {
         res.status(200).json({ status: "success", payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -27,6 +29,7 @@ export const addCart = async (req, res) => {
         res.status(201).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -48,6 +51,7 @@ export const deleteCart = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -60,6 +64,7 @@ export const deleteProductOfCart = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -73,6 +78,7 @@ export const updateProductOfCart = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result });
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message });
+        logger.error(error.message)
     }
 }
 

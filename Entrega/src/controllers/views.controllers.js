@@ -1,10 +1,12 @@
 import { productServices, cartServices } from "../services/index.js"
+import { logger } from "../utils/logger.js"
 
 export const renderChat = (req, res) => {
     try {
         res.render('chat')
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -13,6 +15,7 @@ export const renderRealTimeProducts = (req, res) => {
         res.render('realtimeproducts')
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -31,6 +34,7 @@ export const renderProducts = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 
@@ -41,7 +45,8 @@ export const getCartById = async (req, res) => {
         const products = JSON.parse(JSON.stringify(result));
         res.render('cart', products)
     } catch (error) {
-        console.log(error)
+        res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
 

@@ -40,5 +40,6 @@ export const addTicket = async (req, res) => {
         res.status(200).json({ status: 'success', payload: result })
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
+        logger.error(error.message)
     }
 }
