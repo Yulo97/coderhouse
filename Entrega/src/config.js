@@ -9,5 +9,7 @@ export default {
     passportClientSecretGithub: process.env.PASSPORT_CLIENT_SECRET_GITHUB,
     passportCallbackUrlGithub: process.env.PASSPORT_CALLBACK_URL_GITHUB,
     dao: process.env.DAO,
-    enviroment: process.env.ENVIROMENT
+    enviroment: process.env.ENVIROMENT,
+    passwordEmail: process.env.PASSWORD_MAIL,
+    keyJWT: process.env.JWT_KEY,
 }

@@ -9,6 +9,7 @@ const product = new Schema({
     status: { type: Boolean, default: true },
     stock: { type: Number, required: true },
     category: { type: String, required: true },
+    owner: { type: String, default: "admin"},
     thumbnails: { type: [String], default: [] }
 }, { versionKey: false })
 

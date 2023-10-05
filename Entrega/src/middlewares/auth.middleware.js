@@ -6,6 +6,14 @@ export const isAdmin = (req, res, next) => {
     }
 };
 
+export const isPremium = (req, res, next) => {
+    if (req.user && req.user.role === 'premium') {
+        next(); // Usuario es usuario regular, permitir acceso
+    } else {
+        res.status(403).json({ message: 'Acceso no autorizado' });
+    }
+};
+
 export const isUser = (req, res, next) => {
     if (req.user && req.user.role === 'user') {
         next(); // Usuario es usuario regular, permitir acceso

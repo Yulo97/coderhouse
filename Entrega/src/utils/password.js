@@ -11,3 +11,11 @@ export const passwordCompare = (password, hashed) => {
     const match = bcrypt.compareSync(password, hashed); // Compara una contraseña con un hash
     return match
 }
+
+export const passwordRestore = (password) => {
+    const match = bcrypt.compareSync(password, hashed); // Compara una contraseña con un hash
+
+    if(match) return {error: true, message: "No puedes usar la misma contraseña"}
+
+    
+}

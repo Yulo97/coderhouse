@@ -31,7 +31,8 @@ export const getProductById = async (req, res) => {
 }
 
 export const addProduct = async (req, res) => {
-    const body = req.body
+    const body = {...req.body, owner: req.user.email || "admin"}
+
     try {
         const result = await productServices.create(body)
         res.status(201).json({ status: 'success', payload: result })

@@ -10,5 +10,7 @@ router.get('/products', isLogin, controllers.renderProducts)
 router.get('/carts/:cid', isLogin, controllers.getCartById)
 router.get('/register', controllers.renderRegister)
 router.get('/login', controllers.renderLogin)
+router.get('/restore-password', controllers.renderRestorePassword)
+router.get('/restore-password/:token', controllers.renderRestorePassword2)
 
 export default router

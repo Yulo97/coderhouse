@@ -26,4 +26,7 @@ router.get('/callbackgithub', passport.authenticate('github', {
 
 router.post('/logout', controllers.logoutUser)
 
+router.post('/restore-password', controllers.restorePassword1)
+router.post('/reset-password', controllers.resetPassword)
+
 export default router

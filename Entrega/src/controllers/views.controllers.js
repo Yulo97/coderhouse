@@ -57,3 +57,12 @@ export const renderLogin = async (req, res) => {
 export const renderRegister = async (req, res) => {
     res.render('register')
 }
+
+export const renderRestorePassword = async (req, res) => {
+    res.render('restore-password')
+}
+
+export const renderRestorePassword2 = async (req, res) => {
+    const token = req.params.token 
+    res.render('restore-password-2', {token})
+}
