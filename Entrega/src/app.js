@@ -14,6 +14,8 @@ import config from "./config.js"
 import errorHanlder from "./middlewares/errors.middleware.js"
 import './db.js'
 import { logger } from "./utils/logger.js"
+import swaggerJSDoc from "swagger-jsdoc"
+import swaggerUIExpress from "swagger-ui-express"
 
 const app = express();
 const PORT = config.port
@@ -38,6 +40,21 @@ app.use(session({
 }))
 app.use(passport.session())
 app.use(passport.initialize())
+
+// documentation (swagger)
+const swaggerOption = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: "API eccomerce documentation",
+            description: "Aqui va la descripcion"
+        }
+    },
+    apis: ['./docs/**/*.yaml']
+}
+
+const specs = swaggerJSDoc(swaggerOption)
+app.use('/docs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 
 // Routes
 app.use('/api/product', productRouter)
