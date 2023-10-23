@@ -1,6 +1,6 @@
 import userModel from "../models/user.model.js"
 
-export default class ticketDAO {
+export default class userDAO {
     getAll = async () => await userModel.find()
     getById = async id => await userModel.findById(id)
     findOne = async body => await userModel.findOne({email: body})

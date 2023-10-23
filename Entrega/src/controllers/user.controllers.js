@@ -51,3 +51,21 @@ export const resetPassword = async (req,res) => {
         console.log("ocurrio un error")
     }
 }
+
+export const updateRole = async (req, res) => {
+    const user = await userServices.getById(req.params.uid)
+    if(user.role === "admin") return
+
+    try {
+        if(user.role === "premium") {
+            await userServices.update(req.params.uid, {role: "user"})
+        }
+        else{
+            await userServices.update(req.params.uid, {role: "premium"})
+        }
+
+        res.json({status: "success", message: "'Role' cambiado correctamente"})
+    } catch (error) {
+        res.json({status: "error", message: "No se pudo cambiar el 'role'"})
+    }
+}

@@ -7,7 +7,14 @@ const user = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     cart: { type: Schema.Types.ObjectId, ref: 'Cart' },
-    role: { type: String, default: "user" }
+    role: { type: String, default: "user" },
+    documents: [
+        {
+            name: { type: String },
+            reference : { type: String }
+        }
+    ],
+    last_connection: { type: Date },
 }, { versionKey: false })
 
 export default model('User', user)

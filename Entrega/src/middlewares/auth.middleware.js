@@ -1,3 +1,7 @@
+import { userServices } from "../services/index.js"
+import { logger } from "../utils/logger.js"
+
+
 export const isAdmin = (req, res, next) => {
     if (req.user && req.user.role === 'admin') {
         next(); // Usuario es administrador, permitir acceso
@@ -29,3 +33,14 @@ export const isLogin = (req, res, next) => {
         res.redirect('/api/views/login');
     }
 };
+
+export const lastConnection = async (req, res, next) => {
+    if(req.user) {
+        try {
+            await userServices.update(req.user._id, {last_connection: Date.now()})
+        } catch (error) {
+            logger.error("Error al actualizar 'last_connection'");
+        }
+    }
+    next()
+}
