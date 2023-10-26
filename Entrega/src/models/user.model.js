@@ -14,7 +14,7 @@ const user = new Schema({
             reference : { type: String }
         }
     ],
-    last_connection: { type: Date },
+    last_connection: { type: Date, default: Date.now },
 }, { versionKey: false })
 
 export default model('User', user)

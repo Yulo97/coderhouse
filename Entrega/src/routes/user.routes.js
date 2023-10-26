@@ -34,8 +34,11 @@ router.post('/reset-password', controllers.resetPassword)
 router.put('/premium/:uid', controllers.updateRole)
 
 router.post('/:uid/documents', uploadDocument, (req, res) => {
-    res.send("hola")
+    res.json({status: "success", message: "Documento subido correctamente"})
 })
 
+router.get("/", controllers.getUsers)
+
+router.delete("/", controllers.deleteInactiveUsers)
 
 export default router

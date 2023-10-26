@@ -8,4 +8,5 @@ export default class UserRepositories {
     create = async body => this.dao.create(body)
     update = async (id, body) => this.dao.update(id, body)
     delete = async (id) => this.dao.delete(id)
+    deleteInactiveUsers = async () => this.dao.deleteInactiveUsers()
 }

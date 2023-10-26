@@ -3,6 +3,7 @@ import { restorePasswordEmail } from "../utils/email.js";
 import jwt from "jsonwebtoken"
 import config from "../config.js";
 import { passwordEncrypt } from "../utils/password.js";
+import { logger } from "../utils/logger.js";
 
 export const logoutUser = (req, res) => {
     req.logout((error) => {
@@ -67,5 +68,23 @@ export const updateRole = async (req, res) => {
         res.json({status: "success", message: "'Role' cambiado correctamente"})
     } catch (error) {
         res.json({status: "error", message: "No se pudo cambiar el 'role'"})
+    }
+}
+
+export const getUsers = async (req,res ) => {
+    try {
+        const users = await userServices.getAll()
+        res.status(200).json(users)
+    } catch (error) {
+        logger.error(error)
+    }
+}
+
+export const deleteInactiveUsers = async (req,res) => {
+    try {
+        await userServices.deleteInactiveUsers()
+        res.status(200).json({status: "success", message: "Usuarios inactivos eliminados correctamente"})
+    } catch (error) {
+        res.status(500).json({status: "failure", message: "Ah ocurrido un error"})
     }
 }

@@ -80,7 +80,7 @@ export const generateProduct = async (req, res) => {
     }
 
     try {
-        const response = await productServices.create(arraya)
+        const response = await productServices.create(array)
         res.status(200).json(response)
     } catch (error) {
         res.status(500).json({ status: 'error', error: error.message })
